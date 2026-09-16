@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 4%;
+    --primary: 0 0% 4%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 6% 95%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 40 6% 95%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 40 6% 95%;
+    --accent-foreground: 0 0% 4%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 88%;
+    --input: 0 0% 82%;
+    --ring: 0 0% 4%;
+    --radius: 0px;
+  }
+
+  * {
+    border-radius: 0 !important;
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-[#0a0a0a] antialiased;
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: #0a0a0a;
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  .font-editorial {
+    font-family: "Cormorant Garamond", Georgia, serif;
+  }
+  .font-grotesk {
+    font-family: "Archivo", system-ui, sans-serif;
+  }
+  .label-caps {
+    @apply uppercase;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    font-weight: 500;
+  }
+  .label-caps-lg {
+    @apply uppercase;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    font-weight: 500;
+  }
+  .text-muted {
+    color: #6e6e6e;
+  }
+  .bg-cream {
+    background-color: #f4f3f0;
+  }
+  .accent-orange {
+    color: #f5821f;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* underline grow link */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover::after,
+  .link-underline.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  /* marquee */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  /* image hover crossfade */
+  .img-crossfade {
+    transition: opacity 0.3s ease;
+  }
+  .img-zoom {
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .group:hover .img-zoom {
+    transform: scale(1.04);
+  }
+  /* drawers */
+  .drawer-right {
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .drawer-right.open {
+    transform: translateX(0);
+  }
+  .drawer-left {
+    transform: translateX(-100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .drawer-left.open {
+    transform: translateX(0);
+  }
+  .overlay-fade {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .overlay-fade.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  /* fade up reveal */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .reveal {
+    opacity: 0;
+  }
+  .reveal.in {
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes heroZoom {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  .hero-zoom {
+    animation: heroZoom 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .hero-zoom,
+  .reveal.in {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+  }
+}
+
+/* ---- RTL support (Arabic markets) ---- */
+[dir="rtl"] .drawer-right {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+[dir="rtl"] .drawer-right.open {
+  transform: translateX(0);
+}
+[dir="rtl"] .drawer-left {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+}
+[dir="rtl"] .drawer-left.open {
+  transform: translateX(0);
+}
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+/* Arabic uses no italic serif emulation — keep editorial font upright */
+[dir="rtl"] .font-editorial em,
+[dir="rtl"] .font-editorial.italic,
+[dir="rtl"] em {
+  font-style: normal;
+}
