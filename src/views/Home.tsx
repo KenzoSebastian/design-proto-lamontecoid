@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <main>
       {/* SECTION 1 — FULLSCREEN HERO (market-localized campaign) */}
-      <section className="relative h-[calc(100vh-6.5rem)] min-h-[540px] overflow-hidden -mt-16">
+      <section className="relative h-[100vh] min-h-[540px] overflow-hidden -mt-16">
         <img
           src="/images/hero.jpeg"
           alt="Lamonte new collection campaign"
